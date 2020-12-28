@@ -65,10 +65,10 @@ namespace StarChartTests
 
             Assert.True((parameters.Count() == 1 && parameters[0]?.ParameterType == typeof(ApplicationDbContext)), "`CelestialObjectController` did not contain a constructor with a parameter of type `ApplicationDbContext`.");
 
-            //var optionsBuilder = new DbContextOptionsBuilder();
-            //var context = new Mock<ApplicationDbContext>(optionsBuilder.Options);
-            //var celestialController = Activator.CreateInstance(controller, new object[] { context.Object });
-            //Assert.True(controller.GetField("_context", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(celestialController) == context.Object, "`CelestialObjectController`'s constructor did not set the `_context` field based on the provided `ApplicationDbContext` parameter.");
+            var optionsBuilder = new DbContextOptionsBuilder();
+            var context = new Mock<ApplicationDbContext>(optionsBuilder.Options);
+            var celestialController = Activator.CreateInstance(controller, new object[] { context.Object });
+            Assert.True(controller.GetField("_context", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(celestialController) == context.Object, "`CelestialObjectController`'s constructor did not set the `_context` field based on the provided `ApplicationDbContext` parameter.");
         }
     }
 }
